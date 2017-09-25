@@ -4,4 +4,10 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 0
+    path: C:/Users/Alexandra/Desktop/Hell/Final/Assets/Japan.unity
+    guid: 00000000000000000000000000000000
+  - enabled: 1
+    path: Assets/MainScene.unity
+    guid: 2e0c9a264f2f92c4b846abf25b89b682
