@@ -9,7 +9,7 @@ public class PlayerMovement : MonoBehaviour {
     //public float Acceleration = 10;
     //public float Deceleration = 10;
     // Use this for initialization
-    public float Speed = 0f;
+    public float MaxSpeed = 0f;
     public float SpeedForce = 10f;
     void Start()
     {
@@ -22,7 +22,7 @@ public class PlayerMovement : MonoBehaviour {
         if (Input.GetKey(KeyCode.RightArrow))
         { GetComponent<Rigidbody2D>().AddForce(transform.right * SpeedForce); }
         else if(Input.GetKeyUp(KeyCode.RightArrow))
-        { Speed = 0; }
+        { MaxSpeed = 0; }
         
         if (Input.GetKey(KeyCode.LeftArrow))
         { GetComponent<Rigidbody2D>().AddForce(-transform.right * SpeedForce); }
