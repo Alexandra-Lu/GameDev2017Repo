@@ -37,13 +37,21 @@ public class PlayerMovement : MonoBehaviour {
     }
     void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.CompareTag("Collectible"))
+        if (col.CompareTag("Collectible")) //holy shit how did i not know about tags until now
         {
             Debug.Log("end me");
             Destroy(col.gameObject);
             //col.gO = the collided object is destroyed instead of the player
-
         }
+       
     }
-
+    void OnCollisionEnter2D(Collision2D plswork)
+        //Collider = Trigger; Collision = Collision
+    {
+        //access comparetag() from gameobject (idk why)
+        if (plswork.gameObject.CompareTag("Enemy"))
+        { }
+        Debug.Log("iwanttodie");
+        //GameControl.instance.Death();
+    }
 }
