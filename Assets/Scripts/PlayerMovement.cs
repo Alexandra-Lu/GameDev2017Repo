@@ -35,4 +35,15 @@ public class PlayerMovement : MonoBehaviour {
 
       
     }
+    void OnTriggerEnter2D(Collider2D col)
+    {
+        if (col.CompareTag("Collectible"))
+        {
+            Debug.Log("end me");
+            Destroy(col.gameObject);
+            //col.gO = the collided object is destroyed instead of the player
+
+        }
     }
+
+}
