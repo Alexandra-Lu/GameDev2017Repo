@@ -11,6 +11,9 @@ public class PlayerMovement : MonoBehaviour {
     // Use this for initialization
     public float MaxSpeed = 0f;
     public float SpeedForce = 10f;
+   
+    private bool canMove = true;
+
     void Start()
     {
 
@@ -19,21 +22,23 @@ public class PlayerMovement : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.RightArrow))
-        { GetComponent<Rigidbody2D>().AddForce(transform.right * SpeedForce); }
-        else if(Input.GetKeyUp(KeyCode.RightArrow))
-        { MaxSpeed = 0; }
-        
-        if (Input.GetKey(KeyCode.LeftArrow))
-        { GetComponent<Rigidbody2D>().AddForce(-transform.right * SpeedForce); }
+        if (canMove == true)
+        {
+            if (Input.GetKey(KeyCode.RightArrow))
+            { GetComponent<Rigidbody2D>().AddForce(transform.right * SpeedForce); }
+            else if (Input.GetKeyUp(KeyCode.RightArrow))
+            { MaxSpeed = 0; }
 
-        if (Input.GetKey(KeyCode.UpArrow))
-        { GetComponent<Rigidbody2D>().AddForce(transform.up * SpeedForce); }
+            if (Input.GetKey(KeyCode.LeftArrow))
+            { GetComponent<Rigidbody2D>().AddForce(-transform.right * SpeedForce); }
 
-        if (Input.GetKey(KeyCode.DownArrow))
-        { GetComponent<Rigidbody2D>().AddForce(-transform.up * SpeedForce); }
+            if (Input.GetKey(KeyCode.UpArrow))
+            { GetComponent<Rigidbody2D>().AddForce(transform.up * SpeedForce); }
 
-      
+            if (Input.GetKey(KeyCode.DownArrow))
+            { GetComponent<Rigidbody2D>().AddForce(-transform.up * SpeedForce); }
+
+        }
     }
     void OnTriggerEnter2D(Collider2D col)
     {
@@ -46,12 +51,16 @@ public class PlayerMovement : MonoBehaviour {
        
     }
     void OnCollisionEnter2D(Collision2D plswork)
-        //Collider = Trigger; Collision = Collision
+        //Collider2D = Trigger; Collision2D = Collision
     {
-        //access comparetag() from gameobject (idk why)
-        if (plswork.gameObject.CompareTag("Enemy"))
-        { }
+        //access comparetag() from gameobject only???
+        //".tag" instead of "CompareTag" IDFK WHY BUT IT FINALLY WORKS
+        if (plswork.gameObject.tag == "Enemy")
+        {
+            GameControl.instance.Death();
+            canMove = false;
+        }
         Debug.Log("iwanttodie");
-        //GameControl.instance.Death();
+        
     }
 }

@@ -14,23 +14,27 @@ public class FollowPath : MonoBehaviour {
     public float Speed = 1;
     public float MaxDistanceToGoal = .1f;
     private IEnumerator<Transform> pointInPath;
+    private bool canMove = true;
     // Use this for initialization
     void Start()
     {
-        if (MyPath == null)
+        if (canMove == true)
         {
-            Debug.LogError("Movement Path cannot be null, I must have a path to follow", gameObject);
-            return;
-        }
-        pointInPath = MyPath.GetNextPathPoint();
-        pointInPath.MoveNext();
+            if (MyPath == null)
+            {
+                Debug.LogError("Movement Path cannot be null, I must have a path to follow", gameObject);
+                return;
+            }
+            pointInPath = MyPath.GetNextPathPoint();
+            pointInPath.MoveNext();
 
-        if (pointInPath.Current == null)
-        {
-            Debug.LogError("A path must have points in it to follow", gameObject);
-            return;
+            if (pointInPath.Current == null)
+            {
+                Debug.LogError("A path must have points in it to follow", gameObject);
+                return;
+            }
+            transform.position = pointInPath.Current.position;
         }
-        transform.position = pointInPath.Current.position;
 
     }
         // Update is called once per frame
@@ -58,4 +62,11 @@ public class FollowPath : MonoBehaviour {
             pointInPath.MoveNext();
         }
 	}
+    void OnCollisionEnter2D(Collision2D plswork)
+   
+    {
+       
+            canMove = false;
+
+    }
 }

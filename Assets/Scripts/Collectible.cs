@@ -13,4 +13,12 @@ public class Collectible : MonoBehaviour {
 	void Update () {
 		
 	}
+
+    private void OnTriggerEnter2D(Collider2D col)
+    {
+        if (col.CompareTag("Player"))
+        {
+            GameControl.instance.Collected();
+        }
+    }
 }
