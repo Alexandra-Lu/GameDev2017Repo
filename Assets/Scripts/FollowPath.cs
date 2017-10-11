@@ -22,7 +22,7 @@ public class FollowPath : MonoBehaviour {
         {
             if (MyPath == null)
             {
-                Debug.LogError("Movement Path cannot be null, I must have a path to follow", gameObject);
+                
                 return;
             }
             pointInPath = MyPath.GetNextPathPoint();
@@ -30,7 +30,7 @@ public class FollowPath : MonoBehaviour {
 
             if (pointInPath.Current == null)
             {
-                Debug.LogError("A path must have points in it to follow", gameObject);
+               
                 return;
             }
             transform.position = pointInPath.Current.position;
