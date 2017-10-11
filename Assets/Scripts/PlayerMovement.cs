@@ -46,21 +46,16 @@ public class PlayerMovement : MonoBehaviour {
 
         }
 
+        //hinder slows down the movement to imply weight of object carried
         if (hinder == true)
         {
             SpeedForce = 6;
         }
 
-       // if (Input.GetKeyDown("space") && collectiblecol)
-        {
-           // Debug.Log("ImBeggingYouPleaseWork");    //It totally fucking works hell yeah
-                                                    // CollectibleThing.transform.SetParent(player);
-           // hinder = true;
-           
-
-        }
+      
     }
-    void OnTriggerStay2D(Collider2D col)
+    void OnTriggerStay2D(Collider2D col) 
+        //TriggerEnter is only called once, Trigger Stay will actually allow the added 'space' condition to work
     {
         if (col.CompareTag("Collectible")) //holy shit how did i not know about tags until now
         {
@@ -68,12 +63,14 @@ public class PlayerMovement : MonoBehaviour {
             Debug.Log("end me");
 
             if (Input.GetKeyDown("space"))
-            { 
+            {
+                Debug.Log("ImBeggingYouPleaseWork"); //fuck yeah it totally works 
             Destroy(col.gameObject);
-                hinder = true;
+                hinder = true; 
             }
 
         }
+        //Collision with the escape/goal space removes the 'weight' of the object and resets speed
         if (col.CompareTag("Goal"))
         {
             hinder = false;
@@ -86,6 +83,8 @@ public class PlayerMovement : MonoBehaviour {
     {
         //access comparetag() from gameobject only???
         //".tag" instead of "CompareTag" IDFK WHY BUT IT FINALLY WORKS
+
+        //Halt movement when colliding with an enemy
         if (plswork.gameObject.tag == "Enemy")
         {
             GameControl.instance.Death();

@@ -29,6 +29,7 @@ public class MovementPath : MonoBehaviour
 
     public void OnDrawGizmos()
     {
+        //draws the line in the editor (and only the editor) to show the path between placed points
         if (PathSequence == null || PathSequence.Length < 2)
         { return; }
         for (var i = 1; i < PathSequence.Length; i++)
@@ -40,6 +41,7 @@ public class MovementPath : MonoBehaviour
             Gizmos.DrawLine(PathSequence[0].position, PathSequence[PathSequence.Length - 1].position);
         }
     }
+    
     public IEnumerator<Transform> GetNextPathPoint()
     {
         if (PathSequence == null|| PathSequence.Length < 1)
@@ -48,12 +50,14 @@ public class MovementPath : MonoBehaviour
         }
         while(true)
         {
+            //poppin through the arrayyy
             yield return PathSequence[movingTo];
             if(PathSequence.Length == 1)
             {
                 continue;
             }
-
+            //Linear paths for when they don't loop/connect back to each other
+            //so the enemy would move from one end of the line to the other, and back
             if(PathType == PathTypes.linear)
             {
                 if (movingTo <= 0)
@@ -66,6 +70,9 @@ public class MovementPath : MonoBehaviour
                 }
             }
             movingTo = movingTo + movementDirection;
+
+            //Loop path is a loop
+            //Like an enemy circling
             if(PathType == PathTypes.loop)
                 if (movingTo >= PathSequence.Length)
                 {

@@ -25,6 +25,7 @@ public class FollowPath : MonoBehaviour {
                 
                 return;
             }
+            //if the object is moving/hasn't collided with anything, pull the next point from the array
             pointInPath = MyPath.GetNextPathPoint();
             pointInPath.MoveNext();
 
@@ -43,6 +44,7 @@ public class FollowPath : MonoBehaviour {
         {
             return;
         }
+        //moves an object between points based on distance
         if (Type == MovementType.MoveTowards)
         {
             transform.position =
@@ -50,6 +52,7 @@ public class FollowPath : MonoBehaviour {
                 pointInPath.Current.position,
                 Time.deltaTime * Speed);
         }
+        //moves an object between points gradually/ based on a percentage
         else if (Type == MovementType.LerpTowards)
         {
             transform.position = Vector3.Lerp(transform.position,
@@ -62,6 +65,7 @@ public class FollowPath : MonoBehaviour {
             pointInPath.MoveNext();
         }
 	}
+    //I don't remember why I put this in here
     void OnCollisionEnter2D(Collision2D plswork)
    
     {
