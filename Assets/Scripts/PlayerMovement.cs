@@ -51,30 +51,33 @@ public class PlayerMovement : MonoBehaviour {
             SpeedForce = 6;
         }
 
-        if (Input.GetKeyDown("space") && collectiblecol)
+       // if (Input.GetKeyDown("space") && collectiblecol)
         {
-            Debug.Log("ImBeggingYouPleaseWork");    //It totally fucking works hell yeah
+           // Debug.Log("ImBeggingYouPleaseWork");    //It totally fucking works hell yeah
                                                     // CollectibleThing.transform.SetParent(player);
-            hinder = true;
-            Destroy(CollectibleThing);
+           // hinder = true;
+           
 
         }
     }
-    void OnTriggerEnter2D(Collider2D col)
+    void OnTriggerStay2D(Collider2D col)
     {
         if (col.CompareTag("Collectible")) //holy shit how did i not know about tags until now
         {
             collectiblecol = true;
             Debug.Log("end me");
 
-
+            if (Input.GetKeyDown("space"))
+            { 
             Destroy(col.gameObject);
+                hinder = true;
+            }
 
         }
         if (col.CompareTag("Goal"))
         {
             hinder = false;
-            SpeedForce = 11;
+            SpeedForce = 13;
         }
     }
  
