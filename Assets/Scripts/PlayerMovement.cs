@@ -18,12 +18,11 @@ public class PlayerMovement : MonoBehaviour {
     public GameObject player;
    
     private bool canMove = true;
-    private bool hinder = false;
     bool collectiblecol = false;
-    bool carryingobject = false;
+  
     bool holdingobject = false; //For picking up only ONE item
     bool colliding;
-    GameObject collectiblethingfuck;
+   
 
     void Start()
     {
@@ -68,6 +67,11 @@ public class PlayerMovement : MonoBehaviour {
             colliding = true;
             collidingobject = collision.gameObject;
         }
+        if (collision.CompareTag("Goal"))
+        {
+            CollectibleThing.transform.parent = null;
+            holdingobject = false;
+        }
     }
 
     void OnTriggerExit(Collider other)
@@ -83,7 +87,7 @@ public class PlayerMovement : MonoBehaviour {
             collidingobject.transform.parent = transform;
             holdingobject = true;
             colliding = false;
-            Debug.Log("PICKED UP FOR 1 FRAME");
+            Debug.Log("PICKED UP");
             CollectibleThing = collidingobject;
 
         } 
@@ -98,8 +102,6 @@ public class PlayerMovement : MonoBehaviour {
             Debug.Log("catscatscats");
             CollectibleThing.transform.parent = null;
             holdingobject = false;
-
-
 
         }
 
