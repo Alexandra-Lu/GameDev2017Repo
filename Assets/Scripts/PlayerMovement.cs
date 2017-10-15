@@ -14,11 +14,16 @@ public class PlayerMovement : MonoBehaviour {
     public float SpeedForce = 10f;
 
     public GameObject CollectibleThing;
+    public GameObject collidingobject;
     public GameObject player;
    
     private bool canMove = true;
     private bool hinder = false;
     bool collectiblecol = false;
+    bool carryingobject = false;
+    bool holdingobject = false; //For picking up only ONE item
+    bool colliding;
+    GameObject collectiblethingfuck;
 
     void Start()
     {
@@ -46,37 +51,61 @@ public class PlayerMovement : MonoBehaviour {
 
         }
 
-        //hinder slows down the movement to imply weight of object carried
-        if (hinder == true)
-        {
-            SpeedForce = 6;
-        }
+        if (holdingobject == true)
+        { SpeedForce = 6; ; }
+        if (holdingobject == false)
+        { SpeedForce = 13; }
 
-      
+        DropItem();
+        PickupItem();
     }
-    void OnTriggerStay2D(Collider2D col) 
-        //TriggerEnter is only called once, Trigger Stay will actually allow the added 'space' condition to work
+
+
+    void OnTriggerEnter2D(Collider2D collision)
     {
-        if (col.CompareTag("Collectible")) //holy shit how did i not know about tags until now
+        if (collision.CompareTag("Collectible"))
         {
-            collectiblecol = true;
-            Debug.Log("end me");
-
-            if (Input.GetKeyDown("space"))
-            {
-                Debug.Log("ImBeggingYouPleaseWork"); //fuck yeah it totally works 
-            Destroy(col.gameObject);
-                hinder = true; 
-            }
-
-        }
-        //Collision with the escape/goal space removes the 'weight' of the object and resets speed
-        if (col.CompareTag("Goal"))
-        {
-            hinder = false;
-            SpeedForce = 13;
+            colliding = true;
+            collidingobject = collision.gameObject;
         }
     }
+
+    void OnTriggerExit(Collider other)
+    {
+        colliding = false;
+        collidingobject = null; 
+
+    }
+
+    void PickupItem()
+    {
+        if (colliding && Input.GetKeyDown(KeyCode.Space)) {
+            collidingobject.transform.parent = transform;
+            holdingobject = true;
+            colliding = false;
+            Debug.Log("PICKED UP FOR 1 FRAME");
+            CollectibleThing = collidingobject;
+
+        } 
+
+    }
+
+
+    void DropItem()
+    {
+       
+        if (Input.GetKeyDown(KeyCode.Space) && holdingobject) {
+            Debug.Log("catscatscats");
+            CollectibleThing.transform.parent = null;
+            holdingobject = false;
+
+
+
+        }
+
+
+    }
+
  
     void OnCollisionEnter2D(Collision2D plswork)
         //Collider2D = Trigger; Collision2D = Collision
