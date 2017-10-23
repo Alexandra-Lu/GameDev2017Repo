@@ -22,11 +22,12 @@ public class PlayerMovement : MonoBehaviour {
   
     bool holdingobject = false; //For picking up only ONE item
     bool colliding;
-   
+
+    Animator anim;
 
     void Start()
     {
-
+        anim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -35,18 +36,47 @@ public class PlayerMovement : MonoBehaviour {
         if (canMove == true)
         {
             if (Input.GetKey(KeyCode.RightArrow))
-            { GetComponent<Rigidbody2D>().AddForce(transform.right * SpeedForce); }
+            {
+                GetComponent<Rigidbody2D>().AddForce(transform.right * SpeedForce);
+                anim.SetInteger("State", 1);
+            }
             else if (Input.GetKeyUp(KeyCode.RightArrow))
-            { MaxSpeed = 0; }
+            { MaxSpeed = 0;
+                anim.SetInteger("State", 0);
+            }
 
             if (Input.GetKey(KeyCode.LeftArrow))
-            { GetComponent<Rigidbody2D>().AddForce(-transform.right * SpeedForce); }
+            {
+                GetComponent<Rigidbody2D>().AddForce(-transform.right * SpeedForce);
+                anim.SetInteger("State", 2);
+            }
+            else if (Input.GetKeyUp(KeyCode.LeftArrow))
+            {
+                MaxSpeed = 0;
+                anim.SetInteger("State", 0);
+            }
 
             if (Input.GetKey(KeyCode.UpArrow))
-            { GetComponent<Rigidbody2D>().AddForce(transform.up * SpeedForce); }
+            {
+                GetComponent<Rigidbody2D>().AddForce(transform.up * SpeedForce);
+                anim.SetInteger("State", 3);
+            }
+            else if (Input.GetKeyUp(KeyCode.UpArrow))
+            {
+                MaxSpeed = 0;
+                anim.SetInteger("State", 0);
+            }
 
             if (Input.GetKey(KeyCode.DownArrow))
-            { GetComponent<Rigidbody2D>().AddForce(-transform.up * SpeedForce); }
+            {
+                GetComponent<Rigidbody2D>().AddForce(-transform.up * SpeedForce);
+                anim.SetInteger("State", 4);
+            }
+            else if (Input.GetKeyUp(KeyCode.DownArrow))
+            {
+                MaxSpeed = 0;
+                anim.SetInteger("State", 0);
+            }
 
         }
 
