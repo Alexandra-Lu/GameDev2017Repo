@@ -64,6 +64,7 @@ public class PlayerMovement : MonoBehaviour {
     {
         if (collision.CompareTag("Collectible"))
         {
+            Debug.Log("plsworkpls");    //fuck yeah it fucking works
             colliding = true;
             collidingobject = collision.gameObject;
         }
@@ -76,6 +77,7 @@ public class PlayerMovement : MonoBehaviour {
 
     void OnTriggerExit(Collider other)
     {
+        Debug.Log("endme");
         colliding = false;
         collidingobject = null; 
 
