@@ -18,12 +18,16 @@ public class PlayerMovement : MonoBehaviour {
     public GameObject player;
    
     private bool canMove = true;
-    bool collectiblecol = false;
+  //  bool collectiblecol = false;
   
     bool holdingobject = false; //For picking up only ONE item
     bool colliding;
 
     Animator anim;
+
+    public AudioSource pickup;
+    public AudioSource drop;
+    public AudioSource meow;
 
     void Start()
     {
@@ -81,9 +85,9 @@ public class PlayerMovement : MonoBehaviour {
         }
 
         if (holdingobject == true)
-        { SpeedForce = 6; ; }
+        { SpeedForce = 12; ; }
         if (holdingobject == false)
-        { SpeedForce = 13; }
+        { SpeedForce = 16; }
 
         DropItem();
         PickupItem();
@@ -100,8 +104,10 @@ public class PlayerMovement : MonoBehaviour {
         }
         if (collision.CompareTag("Goal"))
         {
-            CollectibleThing.transform.parent = null;
+           CollectibleThing.transform.parent = null;
             holdingobject = false;
+
+            meow.Play();
         }
     }
 
@@ -122,6 +128,7 @@ public class PlayerMovement : MonoBehaviour {
             Debug.Log("PICKED UP");
             CollectibleThing = collidingobject;
 
+            pickup.Play();
         } 
 
     }
@@ -135,6 +142,7 @@ public class PlayerMovement : MonoBehaviour {
             CollectibleThing.transform.parent = null;
             holdingobject = false;
 
+            drop.Play();
         }
 
 
