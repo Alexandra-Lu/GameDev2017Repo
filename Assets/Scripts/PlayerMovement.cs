@@ -104,10 +104,13 @@ public class PlayerMovement : MonoBehaviour {
         }
         if (collision.CompareTag("Goal"))
         {
-           CollectibleThing.transform.parent = null;
-            holdingobject = false;
+            if (CollectibleThing != null)
+            {
+                CollectibleThing.transform.parent = null;
+                holdingobject = false;
 
-            meow.Play();
+                meow.Play();
+            }
         }
     }
 
@@ -148,7 +151,7 @@ public class PlayerMovement : MonoBehaviour {
 
     }
 
- 
+ //SetTuningvalue(SettingsObject.)
     void OnCollisionEnter2D(Collision2D plswork)
         //Collider2D = Trigger; Collision2D = Collision
     {
