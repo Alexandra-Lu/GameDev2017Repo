@@ -15,6 +15,8 @@ public class FollowPath : MonoBehaviour {
     public float MaxDistanceToGoal = .1f;
     private IEnumerator<Transform> pointInPath;
     private bool canMove = true;
+
+   
     // Use this for initialization
     void Start()
     {

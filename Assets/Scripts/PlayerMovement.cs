@@ -99,9 +99,9 @@ public class PlayerMovement : MonoBehaviour {
         //score.text = "Score:  " + scoreValue;
 
         if (holdingobject == true)
-        { SpeedForce = 12; ; }
+        { SpeedForce = 7; ; }
         if (holdingobject == false)
-        { SpeedForce = 16; }
+        { SpeedForce = 10; }
 
         DropItem();
         PickupItem();
