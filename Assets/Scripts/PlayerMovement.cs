@@ -20,16 +20,18 @@ public class PlayerMovement : MonoBehaviour {
     public bool gameOver = false;
     public GameObject GameOver;
 
-    //  bool collectiblecol = false;
-
     bool holdingobject = false; //For picking up only ONE item
     bool colliding;
+    bool placegoal;
 
     Animator anim;
 
     public AudioSource pickup;
     public AudioSource drop;
     public AudioSource meow;
+    public AudioSource justbecause;
+    public AudioSource fail;
+
 
 
     void Start()
@@ -91,12 +93,14 @@ public class PlayerMovement : MonoBehaviour {
             }
         }
 
-        //score.text = "Score:  " + scoreValue;
-
+        
         if (holdingobject == true)
         { SpeedForce = 7; ; }
         if (holdingobject == false)
         { SpeedForce = 10; }
+
+    
+
 
         DropItem();
         PickupItem();
@@ -117,11 +121,17 @@ public class PlayerMovement : MonoBehaviour {
             {
                 CollectibleThing.transform.parent = null;
                 holdingobject = false;
+                placegoal = true;
 
                 GameControl.instance.Scored();
 
                 meow.Play();
+
+                CollectibleThing.GetComponent<CircleCollider2D>().enabled = false;
+                CollectibleThing = null;
+                
             }
+           
         }
     }
 
@@ -142,7 +152,7 @@ public class PlayerMovement : MonoBehaviour {
             Debug.Log("PICKED UP");
             CollectibleThing = collidingobject;
 
-            pickup.Play();
+            drop.Play();
         } 
 
     }
@@ -156,7 +166,7 @@ public class PlayerMovement : MonoBehaviour {
             CollectibleThing.transform.parent = null;
             holdingobject = false;
 
-            drop.Play();
+            pickup.Play();
         }
 
 
@@ -175,7 +185,8 @@ public class PlayerMovement : MonoBehaviour {
             gameOver = true;  //KILL ME PLS
             GameOver.SetActive(true);
             canMove = false;
-           // GetComponent("FollowPath").enabled = false;
+            // GetComponent("FollowPath").enabled = false;
+            fail.Play();
         }
         Debug.Log("iwanttodie");
         

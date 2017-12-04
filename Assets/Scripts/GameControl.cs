@@ -9,6 +9,7 @@ public class GameControl : MonoBehaviour {
     public GameObject gameOverText;
     public Text scoreText;
     public GameObject winText;
+    public AudioSource purr;
 
     
 
@@ -50,6 +51,7 @@ public class GameControl : MonoBehaviour {
         if (score == 6) 
         {
             winText.SetActive(true);
+            purr.Play();
         }
     }
     public void Collected()
