@@ -118,6 +118,8 @@ public class PlayerMovement : MonoBehaviour {
                 CollectibleThing.transform.parent = null;
                 holdingobject = false;
 
+                GameControl.instance.Scored();
+
                 meow.Play();
             }
         }
@@ -160,7 +162,6 @@ public class PlayerMovement : MonoBehaviour {
 
     }
 
- //SetTuningvalue(SettingsObject.)
     void OnCollisionEnter2D(Collision2D plswork)
         //Collider2D = Trigger; Collision2D = Collision
     {
