@@ -71,8 +71,10 @@ public class FollowPath : MonoBehaviour {
     void OnCollisionEnter2D(Collision2D plswork)
    
     {
-       
-            canMove = false;
-
+        if (plswork.gameObject.tag == "Player")
+        {
+            //destroy script to disable enemy movement
+            Destroy(this);
+        }
     }
 }

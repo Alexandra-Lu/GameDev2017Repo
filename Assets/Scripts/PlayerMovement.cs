@@ -6,10 +6,7 @@ using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour {
 
-    // public float Speed = 10;
-    //public float MaxSpeed = 10;
-    //public float Acceleration = 10;
-    //public float Deceleration = 10;
+  
     // Use this for initialization
     public float MaxSpeed = 0f;
     public float SpeedForce = 10f;
@@ -34,13 +31,11 @@ public class PlayerMovement : MonoBehaviour {
     public AudioSource drop;
     public AudioSource meow;
 
-    public int scoreValue = 0;
-    Text score;
 
     void Start()
     {
         anim = GetComponent<Animator>();
-        score = GetComponent<Text>();
+      
     }
 
     // Update is called once per frame
@@ -123,8 +118,6 @@ public class PlayerMovement : MonoBehaviour {
                 CollectibleThing.transform.parent = null;
                 holdingobject = false;
 
-                scoreValue += 10;
-
                 meow.Play();
             }
         }
@@ -179,8 +172,9 @@ public class PlayerMovement : MonoBehaviour {
         {
             GameControl.instance.Death();
             gameOver = true;  //KILL ME PLS
-
+            GameOver.SetActive(true);
             canMove = false;
+           // GetComponent("FollowPath").enabled = false;
         }
         Debug.Log("iwanttodie");
         

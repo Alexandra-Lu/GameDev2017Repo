@@ -7,7 +7,7 @@ public class GameControl : MonoBehaviour {
     public bool gameOver = false;
     public static GameControl instance;
     public GameObject gameOverText;
-    public Text scoreText;
+    
 
     private int score = 0;
     
@@ -34,7 +34,7 @@ public class GameControl : MonoBehaviour {
 	}
     public void Death()
     {
-        gameOverText.SetActive(true);
+       gameOverText.SetActive(true);
         gameOver = true;
     }
     public void Collected()
@@ -42,7 +42,6 @@ public class GameControl : MonoBehaviour {
         if (gameOver)
         { return; }
 
-        score++;
-        scoreText.text = "Score:" + score.ToString();
+        
     }
 }
